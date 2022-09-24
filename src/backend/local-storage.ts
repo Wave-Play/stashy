@@ -30,12 +30,26 @@ export default class LocalStorageBackend implements StashyBackend {
 		return value ? value === 'true' : null;
 	};
 
+	public async getBooleanAsync(key: string): Promise<boolean> {
+		const value = this.getString(key);
+		return value ? value === 'true' : null;
+	};
+
 	public getNumber(key: string): number {
 		const value = this.getString(key);
 		return value ? parseFloat(value) : null;
 	};
 
+	public async getNumberAsync(key: string): Promise<number> {
+		const value = this.getString(key);
+		return value ? parseFloat(value) : null;
+	};
+
 	public getString(key: string): string {
+		return localStorage.getItem(this._key(key));
+	};
+
+	public async getStringAsync(key: string): Promise<string> {
 		return localStorage.getItem(this._key(key));
 	};
 

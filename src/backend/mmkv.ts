@@ -40,11 +40,23 @@ export default class MmkvBackend implements StashyBackend {
 		return this._storage.getBoolean(key);
 	};
 
+	public async getBooleanAsync(key: string): Promise<boolean> {
+		return this._storage.getBoolean(key);
+	};
+
 	public getNumber(key: string): number {
 		return this._storage.getNumber(key);
 	};
 
+	public async getNumberAsync(key: string): Promise<number> {
+		return this._storage.getNumber(key);
+	};
+
 	public getString(key: string): string {
+		return this._storage.getString(key);
+	};
+
+	public async getStringAsync(key: string): Promise<string> {
 		return this._storage.getString(key);
 	};
 

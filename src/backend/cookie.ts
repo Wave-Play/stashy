@@ -36,12 +36,27 @@ export default class CookieBackend implements StashyBackend {
 		return value ? value === 'true' : null;
 	};
 
+	public async getBooleanAsync(key: string, options?: StashyOptions): Promise<boolean> {
+		const value = this.getString(key, options);
+		return value ? value === 'true' : null;
+	};
+
 	public getNumber(key: string, options?: StashyOptions): number {
 		const value = this.getString(key, options);
 		return value ? parseFloat(value) : null;
 	};
 
+	public async getNumberAsync(key: string, options?: StashyOptions): Promise<number> {
+		const value = this.getString(key, options);
+		return value ? parseFloat(value) : null;
+	};
+
 	public getString(key: string, options?: StashyOptions): string {
+		validateOptions(options);
+		return parseCookies(options?.context)?.[this._key(key)];
+	};
+
+	public async getStringAsync(key: string, options?: StashyOptions): Promise<string> {
 		validateOptions(options);
 		return parseCookies(options?.context)?.[this._key(key)];
 	};
