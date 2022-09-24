@@ -23,7 +23,7 @@
 		"importHelpers": true,
 		"declaration": true,
 		"sourceMap": true,
-		"rootDir": ".",
+		"rootDir": "./src",
 		"noUnusedLocals": true,
 		"moduleResolution": "node",
 		"outDir": "dist"

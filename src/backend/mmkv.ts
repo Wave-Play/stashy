@@ -1,6 +1,7 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
+// @ts-ignore
 import { MMKV } from 'react-native-mmkv';
 import { StashyBackend, StashyBackendInitOptions } from './_base';
 

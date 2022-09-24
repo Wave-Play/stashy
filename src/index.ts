@@ -8,12 +8,6 @@ import MmkvBackend from './backend/mmkv';
 import pino from 'pino';
 import { Platform } from 'react-native';
 
-export * from './backend/_base';
-export * from './backend/cookie';
-export * from './backend/local-storage';
-export * from './backend/mmkv';
-export * from './jotai';
-
 interface StashyConstructor {
 	backend?: StashyBackend | {
 		native?: StashyBackend
