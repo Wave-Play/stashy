@@ -4,9 +4,9 @@
 import { StashyBackend, StashyOptions } from './backend/_base';
 import CookieBackend from './backend/cookie';
 import LocalStorageBackend from './backend/local-storage';
-import MmkvBackend from './backend/mmkv';
 import pino from 'pino';
 import { Platform } from 'react-native';
+import AsyncStorageBackend from './backend/async-storage';
 
 interface StashyConstructor {
 	backend?: StashyBackend | {
@@ -121,7 +121,7 @@ export default stashy;
 
 function getDefaultBackend(platform: 'native' | 'ssr' | 'web'): StashyBackend {
 	if (isNative() && platform === 'native') {
-		return new MmkvBackend();
+		return new AsyncStorageBackend();
 	} else if (isSSR() && platform === 'ssr') {
 		return new CookieBackend();
 	} else if (!isNative() && !isSSR() && platform === 'web') {
