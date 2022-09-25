@@ -41,7 +41,7 @@ export default class AsyncStorageBackend implements StashyBackend {
 	};
 
 	public async getBooleanAsync(key: string): Promise<boolean> {
-		const value = this.getString(key);
+		const value = await this.getStringAsync(key);
 		return value ? value === 'true' : null;
 	};
 
@@ -51,7 +51,7 @@ export default class AsyncStorageBackend implements StashyBackend {
 	};
 
 	public async getNumberAsync(key: string): Promise<number> {
-		const value = this.getString(key);
+		const value = await this.getStringAsync(key);
 		return value ? parseFloat(value) : null;
 	};
 
