@@ -83,28 +83,57 @@ export class Stashy {
 		this._pino.trace(`[${this._getId()}] get(${key}) with options:`, options);
 		const encodedValue = this._backend().getString(key, options);
 		const value = encodedValue ? JSON.parse(encodedValue) : null;
-		this._pino.debug(`[${this._getId()}] get(${key}) >>`, value);
+		this._pino.debug(`[${this._getId()}] get(${key}) value is:`, value);
 		return value;
 	};
 
-	public getBoolean(key: string, options?: StashyOptions) {
+	public async getAsync<T>(key: string, options?: StashyOptions): Promise<T> {
+		this._pino.trace(`[${this._getId()}] getAsync(${key}) with options:`, options);
+		const encodedValue = await this._backend().getStringAsync(key, options);
+		const value = encodedValue ? JSON.parse(encodedValue) : null;
+		this._pino.debug(`[${this._getId()}] getAsync(${key}) value is:`, value);
+		return value;
+	};
+
+	public getBoolean(key: string, options?: StashyOptions): boolean {
 		this._pino.trace(`[${this._getId()}] getBoolean(${key}) with options:`, options);
 		const value = this._backend().getBoolean(key, options);
-		this._pino.debug(`[${this._getId()}] getBoolean(${key}) >>`, value);
+		this._pino.debug(`[${this._getId()}] getBoolean(${key}) value is:`, value);
 		return value;
 	};
 
-	public getNumber(key: string, options?: StashyOptions) {
+	public async getBooleanAsync(key: string, options?: StashyOptions): Promise<boolean> {
+		this._pino.trace(`[${this._getId()}] getBooleanAsync(${key}) with options:`, options);
+		const value = await this._backend().getBooleanAsync(key, options);
+		this._pino.debug(`[${this._getId()}] getBooleanAsync(${key}) value is:`, value);
+		return value;
+	};
+
+	public getNumber(key: string, options?: StashyOptions): number {
 		this._pino.trace(`[${this._getId()}] getNumber(${key}) with options:`, options);
 		const value = this._backend().getNumber(key, options);
-		this._pino.debug(`[${this._getId()}] getNumber(${key}) >>`, value);
+		this._pino.debug(`[${this._getId()}] getNumber(${key}) value is:`, value);
 		return value;
 	};
 
-	public getString(key: string, options?: StashyOptions) {
+	public async getNumberAsync(key: string, options?: StashyOptions): Promise<number> {
+		this._pino.trace(`[${this._getId()}] getNumberAsync(${key}) with options:`, options);
+		const value = await this._backend().getNumberAsync(key, options);
+		this._pino.debug(`[${this._getId()}] getNumberAsync(${key}) value is:`, value);
+		return value;
+	};
+
+	public getString(key: string, options?: StashyOptions): string {
 		this._pino.trace(`[${this._getId()}] getString(${key}) with options:`, options);
 		const value = this._backend().getString(key, options);
-		this._pino.debug(`[${this._getId()}] getString(${key}) >>`, value);
+		this._pino.debug(`[${this._getId()}] getString(${key}) value is:`, value);
+		return value;
+	};
+
+	public async getStringAsync(key: string, options?: StashyOptions): Promise<string> {
+		this._pino.trace(`[${this._getId()}] getStringAsync(${key}) with options:`, options);
+		const value = await this._backend().getStringAsync(key, options);
+		this._pino.debug(`[${this._getId()}] getStringAsync(${key}) value is:`, value);
 		return value;
 	};
 

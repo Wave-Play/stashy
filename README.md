@@ -28,10 +28,11 @@ yarn add @waveplay/stashy
 import stashy from '@waveplay/stashy';
 
 // Get a value from storage
-const stuff = stashy.getString('stuff');
+const displayName = stashy.getString('name');
+console.log(`Your username is ${displayName}`);
 
 // Update a value in storage
-stashy.set('stuff', stuff + ' and more stuff');
+stashy.set('name', 'Pkmmte Xeleon');
 ```
 
 ## Credits

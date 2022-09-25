@@ -26,9 +26,17 @@ export default class CookieBackend implements StashyBackend {
 		throw new Error(`clearAll() is not supported for CookieBackend`);
 	}
 
+	public async clearAllAsync(): Promise<void> {
+		throw new Error(`clearAllAsync() is not supported for CookieBackend`);
+	}
+
 	public delete(key: string, options?: StashyOptions) {
 		validateOptions(options);
 		destroyCookie(options?.context, this._key(key));
+	}
+
+	public async deleteAsync(key: string, options?: StashyOptions): Promise<void> {
+		this.delete(key, options);
 	}
 
 	public getBoolean(key: string, options?: StashyOptions): boolean {
@@ -70,6 +78,10 @@ export default class CookieBackend implements StashyBackend {
 			path: options?.path || '/',
 			secure: options?.secure
 		});
+	}
+
+	public async setAsync(key: string, value: boolean | number | string, options?: StashyOptions): Promise<void> {
+		this.set(key, value, options);
 	}
 }
 

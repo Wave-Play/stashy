@@ -19,7 +19,9 @@ export interface StashyBackendInitOptions {
 export interface StashyBackend {
 	_init: (StashyBackendInitOptions) => void
 	clearAll: (options?: StashyOptions) => void
+	clearAllAsync: (options?: StashyOptions) => Promise<void>
 	delete: (key: string, options?: StashyOptions) => void
+	deleteAsync: (key: string, options?: StashyOptions) => Promise<void>
 	getBoolean: (key: string, options?: StashyOptions) => boolean
 	getBooleanAsync: (key: string, options?: StashyOptions) => Promise<boolean>
 	getNumber: (key: string, options?: StashyOptions) => number
@@ -27,4 +29,5 @@ export interface StashyBackend {
 	getString: (key: string, options?: StashyOptions) => string
 	getStringAsync: (key: string, options?: StashyOptions) => Promise<string>
 	set: (key: string, value: boolean | number | string, options?: StashyOptions) => void
+	setAsync: (key: string, value: boolean | number | string, options?: StashyOptions) => Promise<void>
 }

@@ -32,8 +32,16 @@ export default class MmkvBackend implements StashyBackend {
 		this._storage?.clearAll();
 	}
 
+	public async clearAllAsync(): Promise<void> {
+		this.clearAll();
+	}
+
 	public delete(key: string) {
 		this._storage.delete(key);
+	}
+
+	public async deleteAsync(key: string): Promise<void> {
+		this.delete(key);
 	}
 
 	public getBoolean(key: string): boolean {
@@ -62,5 +70,9 @@ export default class MmkvBackend implements StashyBackend {
 
 	public set(key: string, value: boolean | number | string) {
 		this._storage.set(key, value);
+	}
+
+	public async setAsync(key: string, value: boolean | number | string): Promise<void> {
+		this.set(key, value);
 	}
 }

@@ -23,8 +23,16 @@ export default class AsyncStorageBackend implements StashyBackend {
 		AsyncStorage.clear();
 	}
 
+	public async clearAllAsync(): Promise<void> {
+		return AsyncStorage.clear();
+	}
+
 	public delete(key: string) {
 		AsyncStorage.removeItem(this._key(key));
+	}
+
+	public async deleteAsync(key: string): Promise<void> {
+		return AsyncStorage.removeItem(this._key(key));
 	}
 
 	public getBoolean(key: string): boolean {
@@ -58,5 +66,9 @@ export default class AsyncStorageBackend implements StashyBackend {
 
 	public set(key: string, value: boolean | number | string) {
 		AsyncStorage.setItem(this._key(key), typeof value === 'string' ? value : String(value));
+	}
+
+	public async setAsync(key: string, value: boolean | number | string): Promise<void> {
+		return AsyncStorage.setItem(this._key(key), typeof value === 'string' ? value : String(value));
 	}
 }
