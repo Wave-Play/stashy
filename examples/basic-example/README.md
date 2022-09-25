@@ -23,3 +23,5 @@ yarn start:expo
 ```
 
 You can run both `start:next` and `start:expo` at the same time.
+
+Main usage is in `pages/index.tsx`. You can see how to use Stashy in the browser, React Native, and NextJS server side.
