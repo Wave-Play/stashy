@@ -2,7 +2,7 @@
  * © 2022 WavePlay <dev@waveplay.com>
  */
 import { StashyBackend, StashyBackendInitOptions } from './_base';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Basic AsyncStorage implementation. 
