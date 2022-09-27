@@ -52,7 +52,18 @@ export class Stashy {
 		this._backend()._init({ id });
 	}
 
-	private _backend(): StashyBackend {
+	private _backend(options?: StashyOptions): StashyBackend {
+		if (options?.backend === 'native') {
+			this._pino.debug(`[${this._getId()}] forced native backend!`);
+			return this._backendNative;
+		} else if (options?.backend === 'ssr') {
+			this._pino.debug(`[${this._getId()}] forced server side backend!`);
+			return this._backendSsr;
+		} else if (options?.backend === 'web') {
+			this._pino.debug(`[${this._getId()}] forced web client backend!`);
+			return this._backendWeb;
+		}
+
 		if (isNative()) {
 			this._pino.debug(`[${this._getId()}] using native backend...`);
 			return this._backendNative;
@@ -71,77 +82,77 @@ export class Stashy {
 
 	public clearAll(options?: StashyOptions) {
 		this._pino.trace(`[${this._getId()}] clearAll() with options:`, options);
-		this._backend().clearAll(options);
+		this._backend(options).clearAll(options);
 	}
 
 	public delete(key: string, options?: StashyOptions) {
 		this._pino.trace(`[${this._getId()}] delete(${key}) with options:`, options);
-		this._backend().delete(key, options);
+		this._backend(options).delete(key, options);
 	}
 
 	public get<T>(key: string, options?: StashyOptions): T {
 		this._pino.trace(`[${this._getId()}] get(${key}) with options:`, options);
-		const encodedValue = this._backend().getString(key, options);
+		const encodedValue = this._backend(options).getString(key, options);
 		const value = encodedValue ? JSON.parse(encodedValue) : null;
 		this._pino.debug(`[${this._getId()}] get(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public async getAsync<T>(key: string, options?: StashyOptions): Promise<T> {
 		this._pino.trace(`[${this._getId()}] getAsync(${key}) with options:`, options);
-		const encodedValue = await this._backend().getStringAsync(key, options);
+		const encodedValue = await this._backend(options).getStringAsync(key, options);
 		const value = encodedValue ? JSON.parse(encodedValue) : null;
 		this._pino.debug(`[${this._getId()}] getAsync(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public getBoolean(key: string, options?: StashyOptions): boolean {
 		this._pino.trace(`[${this._getId()}] getBoolean(${key}) with options:`, options);
-		const value = this._backend().getBoolean(key, options);
+		const value = this._backend(options).getBoolean(key, options);
 		this._pino.debug(`[${this._getId()}] getBoolean(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public async getBooleanAsync(key: string, options?: StashyOptions): Promise<boolean> {
 		this._pino.trace(`[${this._getId()}] getBooleanAsync(${key}) with options:`, options);
-		const value = await this._backend().getBooleanAsync(key, options);
+		const value = await this._backend(options).getBooleanAsync(key, options);
 		this._pino.debug(`[${this._getId()}] getBooleanAsync(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public getNumber(key: string, options?: StashyOptions): number {
 		this._pino.trace(`[${this._getId()}] getNumber(${key}) with options:`, options);
-		const value = this._backend().getNumber(key, options);
+		const value = this._backend(options).getNumber(key, options);
 		this._pino.debug(`[${this._getId()}] getNumber(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public async getNumberAsync(key: string, options?: StashyOptions): Promise<number> {
 		this._pino.trace(`[${this._getId()}] getNumberAsync(${key}) with options:`, options);
-		const value = await this._backend().getNumberAsync(key, options);
+		const value = await this._backend(options).getNumberAsync(key, options);
 		this._pino.debug(`[${this._getId()}] getNumberAsync(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public getString(key: string, options?: StashyOptions): string {
 		this._pino.trace(`[${this._getId()}] getString(${key}) with options:`, options);
-		const value = this._backend().getString(key, options);
+		const value = this._backend(options).getString(key, options);
 		this._pino.debug(`[${this._getId()}] getString(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public async getStringAsync(key: string, options?: StashyOptions): Promise<string> {
 		this._pino.trace(`[${this._getId()}] getStringAsync(${key}) with options:`, options);
-		const value = await this._backend().getStringAsync(key, options);
+		const value = await this._backend(options).getStringAsync(key, options);
 		this._pino.debug(`[${this._getId()}] getStringAsync(${key}) value is:`, value);
-		return value;
+		return value || options?.default;
 	};
 
 	public set(key: string, value: boolean | number | string | any, options?: StashyOptions) {
 		this._pino.trace(`[${this._getId()}] set(${key}) with options:`, options);
 		const isObject = typeof value === 'object';
 		const encodedValue = isObject ? JSON.stringify(value) : value;
-		this._backend().set(key, encodedValue, options);
+		this._backend(options).set(key, encodedValue, options);
 		this._pino.info(`[${this._getId()}] set(${key}) <<`, value);
 	}
 }
@@ -165,5 +176,5 @@ function isNative(): boolean {
 }
 
 function isSSR(): boolean {
-	return !isNative() && typeof window !== 'object';
+	return (!isNative()) && typeof window !== 'object';
 }

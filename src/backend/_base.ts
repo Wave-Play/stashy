@@ -4,7 +4,9 @@
 import type { GetServerSidePropsContext } from 'next';
 
 export interface StashyOptions {
+	backend?: 'native' | 'ssr' | 'web'
 	context?: GetServerSidePropsContext
+	default?: any
 	domain?: string
 	maxAge?: number
 	path?: string
