@@ -43,7 +43,7 @@ export class Stashy {
 			backend,
 			id,
 			logger
-		} = options || {};
+		} = options ?? {};
 
 		// IDs are often used to separate out data storage into different entry groups
 		this._id = id;
@@ -53,9 +53,9 @@ export class Stashy {
 
 		// Prepare our backing storage backend(s)
 		// Defaults only get assigned if currently running in that platform
-		this._backendNative = backend?.['native'] || (backend?.['_init'] ? backend : getDefaultBackend('native'));
-		this._backendSsr = backend?.['ssr'] || (backend?.['_init'] ? backend : getDefaultBackend('ssr'));
-		this._backendWeb = backend?.['web'] || (backend?.['_init'] ? backend : getDefaultBackend('web'));
+		this._backendNative = backend?.['native'] ?? (backend?.['_init'] ? backend : getDefaultBackend('native'));
+		this._backendSsr = backend?.['ssr'] ?? (backend?.['_init'] ? backend : getDefaultBackend('ssr'));
+		this._backendWeb = backend?.['web'] ?? (backend?.['_init'] ? backend : getDefaultBackend('web'));
 		this._backend()._init({ id });
 	}
 
@@ -103,7 +103,7 @@ export class Stashy {
 		const encodedValue = this._backend(options).getString(key, options);
 		const value = encodedValue ? JSON.parse(encodedValue) : null;
 		this._log('debug', `get(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public async getAsync<T>(key: string, options?: StashyOptions): Promise<T> {
@@ -111,49 +111,49 @@ export class Stashy {
 		const encodedValue = await this._backend(options).getStringAsync(key, options);
 		const value = encodedValue ? JSON.parse(encodedValue) : null;
 		this._log('debug', `getAsync(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public getBoolean(key: string, options?: StashyOptions): boolean {
 		this._log('trace', `getBoolean(${key}) with options:`, options);
 		const value = this._backend(options).getBoolean(key, options);
 		this._log('debug', `getBoolean(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public async getBooleanAsync(key: string, options?: StashyOptions): Promise<boolean> {
 		this._log('trace', `getBooleanAsync(${key}) with options:`, options);
 		const value = await this._backend(options).getBooleanAsync(key, options);
 		this._log('debug', `getBooleanAsync(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public getNumber(key: string, options?: StashyOptions): number {
 		this._log('trace', `getNumber(${key}) with options:`, options);
 		const value = this._backend(options).getNumber(key, options);
 		this._log('debug', `getNumber(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public async getNumberAsync(key: string, options?: StashyOptions): Promise<number> {
 		this._log('trace', `getNumberAsync(${key}) with options:`, options);
 		const value = await this._backend(options).getNumberAsync(key, options);
 		this._log('debug', `getNumberAsync(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public getString(key: string, options?: StashyOptions): string {
 		this._log('trace', `getString(${key}) with options:`, options);
 		const value = this._backend(options).getString(key, options);
 		this._log('debug', `getString(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public async getStringAsync(key: string, options?: StashyOptions): Promise<string> {
 		this._log('trace', `getStringAsync(${key}) with options:`, options);
 		const value = await this._backend(options).getStringAsync(key, options);
 		this._log('debug', `getStringAsync(${key}) value is:`, value);
-		return value || options?.default;
+		return value ?? options?.default;
 	};
 
 	public set(key: string, value: boolean | number | string | any, options?: StashyOptions) {
