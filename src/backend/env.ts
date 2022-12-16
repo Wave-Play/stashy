@@ -14,25 +14,6 @@ type EnvModel = {
 	[key: string]: EnvDataItem | EnvModel
 }
 
-function extractEnv(key: string, item: EnvDataItem | EnvModel | string, parent: EnvDataItem | EnvModel): any {
-	if (key === 'env' && typeof item === 'string') {
-		const result = process.env[item];
-		return typeof parent.format === 'function' ? parent.format(result) : result;
-	} else if (typeof item === 'object') {
-		if (typeof item['env'] === 'string') {
-			const result = process.env[item['env']];
-			return typeof parent.format === 'function' ? parent.format(result) : result;
-		}
-		const data = {};
-		for (const key in item) {
-			data[key] = extractEnv(key, item[key], item);
-		}
-		return data;
-	} else if (key === 'env') {
-		throw new Error();
-	}
-};
-
 /**
  * Backend that accepts a structured object similar to the "convict" library as the source of truth
  * This allows you to use Stashy syntax for your environment variables
@@ -49,7 +30,7 @@ export default class EnvBackend implements StashyBackend {
 		const parts = key.split('.');
 		let data: unknown = this._data;
 		for (const part of parts) {
-			data = data[part];
+			data = data?.[part];
 		}
 
 		// Return data, otherwise return default from model
@@ -58,14 +39,14 @@ export default class EnvBackend implements StashyBackend {
 		} else {
 			let model: EnvDataItem | EnvModel = this._model;
 			for (const part of parts) {
-				model = model[part];
+				model = model?.[part];
 			}
-			return model.default;
+			return model?.default;
 		}
 	}
 
 	_init() {
-		this._data = extractEnv(null, this._model, null);
+		this._data = extractValue(null, this._model, null);
 	}
 
 	clearAll(): void {
@@ -116,3 +97,22 @@ export default class EnvBackend implements StashyBackend {
 		throw new Error(`setAsync() is not supported for EnvBackend`);
 	}
 }
+
+function extractValue(key: string | null, item: EnvDataItem | EnvModel | string, parent: EnvDataItem | EnvModel): any {
+	if (typeof item === 'object') {
+		if (typeof item['env'] === 'string') {
+			const result = process.env[item['env']];
+			return typeof parent.format === 'function' ? parent.format(result) : result;
+		}
+
+		// Nested object
+		const data = {};
+		for (const key in item) {
+			data[key] = extractValue(key, item[key], item);
+		}
+		return data;
+	} else if (key === 'env') {
+		// "env" keys should be either a string or an object
+		throw new Error(`Invalid env key: ${key}`);
+	}
+};
