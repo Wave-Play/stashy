@@ -21,7 +21,7 @@ interface StashyConstructor {
 		ssr?: StashyBackend
 		web?: StashyBackend
 	}
-	id: string
+	id?: string
 	logger?: Logger
 }
 
