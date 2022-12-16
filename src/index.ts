@@ -101,7 +101,12 @@ export class Stashy {
 	public get<T>(key: string, options?: StashyOptions): T {
 		this._log('trace', `get(${key}) with options:`, options);
 		const encodedValue = this._backend(options).getString(key, options);
-		const value = encodedValue ? JSON.parse(encodedValue) : null;
+		let value = null;
+		if (typeof encodedValue === 'string') {
+			value = encodedValue ? JSON.parse(encodedValue) : null;
+		} else if (encodedValue) {
+			value = encodedValue;
+		}
 		this._log('debug', `get(${key}) value is:`, value);
 		return value ?? options?.default;
 	};
