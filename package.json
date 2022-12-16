@@ -22,8 +22,9 @@
 		"access": "public"
 	},
 	"files": [
-		"src/",
+		"backend/",
 		"dist/",
+		"src/",
 		"jotai.js",
 		"jotai.d.ts",
 		"LICENSE",
