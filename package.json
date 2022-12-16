@@ -35,12 +35,12 @@
 	},
 	"dependencies": {
 		"@react-native-async-storage/async-storage": "^1.17.10",
-		"jotai": "1.8.4",
 		"nookies": "2.5.2",
 		"pino": "8.5.0"
 	},
 	"peerDependencies": {
-		"react-native-mmkv": "2.4.3"
+		"jotai": ">=1.8.4",
+		"react-native-mmkv": ">=2.4.3"
 	},
 	"devDependencies": {
 		"@types/next": "^9.0.0",
