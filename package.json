@@ -24,6 +24,8 @@
 	"files": [
 		"src/",
 		"dist/",
+		"jotai.js",
+		"jotai.d.ts",
 		"LICENSE",
 		"README.md"
 	],
