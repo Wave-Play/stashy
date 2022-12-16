@@ -1,7 +1,7 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
-import { Stashy } from '.';
+import { Stashy } from '..';
 // @ts-expect-error (peer dependency)
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 

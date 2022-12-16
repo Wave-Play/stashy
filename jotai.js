@@ -1,1 +1,1 @@
-module.exports = require('./dist/jotai')
+module.exports = require('./dist/integrations/jotai')

@@ -31,7 +31,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsup src --dts --sourcemap --external react-native,react-native-mmkv --format esm,cjs --minify",
+		"build": "tsup",
 		"semantic-release": "semantic-release"
 	},
 	"dependencies": {

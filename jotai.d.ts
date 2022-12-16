@@ -1,1 +1,1 @@
-export * from './dist/jotai'
+export * from './dist/integrations/jotai'
