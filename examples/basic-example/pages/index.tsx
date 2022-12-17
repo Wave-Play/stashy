@@ -94,9 +94,9 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomeProps>> => {
 	return {
 		props: {
-			keyBoolean: stashy.getBoolean(KEY_BOOLEAN, { context }),
-			keyNumber: stashy.getNumber(KEY_NUMBER, { context }),
-			keyString: stashy.getString(KEY_STRING, { context })
+			keyBoolean: stashy.getBoolean(KEY_BOOLEAN, { context }) ?? null,
+			keyNumber: stashy.getNumber(KEY_NUMBER, { context }) ?? null,
+			keyString: stashy.getString(KEY_STRING, { context }) ?? null
 		}
 	};
 };
