@@ -1,6 +1,6 @@
-import { COLOR, COLOR_BACKGROUND } from '../core/constants';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { COLOR, COLOR_BACKGROUND } from '../core/constants'
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 interface NumberButtonProps {
 	index: number
@@ -9,21 +9,31 @@ interface NumberButtonProps {
 	selected?: boolean
 }
 const NumberButton = (props: NumberButtonProps) => {
-	const { index, number, onPress, selected } = props;
+	const { index, number, onPress, selected } = props
 
 	return (
-		<TouchableOpacity key={number} style={[styles.container, {
-			backgroundColor: selected ? COLOR_BACKGROUND : undefined,
-			borderColor: COLOR_BACKGROUND,
-			borderWidth: selected ? 0 : 2,
-			marginLeft: index === 0 ? 0 : 8
-		}]} onPress={() => {console.log(`Pressing ${number}`); onPress(number)}}>
+		<TouchableOpacity
+			key={number}
+			style={[
+				styles.container,
+				{
+					backgroundColor: selected ? COLOR_BACKGROUND : undefined,
+					borderColor: COLOR_BACKGROUND,
+					borderWidth: selected ? 0 : 2,
+					marginLeft: index === 0 ? 0 : 8
+				}
+			]}
+			onPress={() => {
+				console.log(`Pressing ${number}`)
+				onPress(number)
+			}}
+		>
 			<Text style={styles.text}>{number}</Text>
 		</TouchableOpacity>
 	)
-};
-export default NumberButton;
- 
+}
+export default NumberButton
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -42,4 +52,4 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: '600'
 	}
-});
+})

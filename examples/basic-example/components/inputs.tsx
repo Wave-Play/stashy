@@ -1,10 +1,10 @@
-import { COLOR, COLOR_BACKGROUND } from '../core/constants';
-import { useSafeAreaInsets } from '../core/use-safe-area';
-import React, { FunctionComponent } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import NumberButton from './number-button';
+import { COLOR, COLOR_BACKGROUND } from '../core/constants'
+import { useSafeAreaInsets } from '../core/use-safe-area'
+import React, { FunctionComponent } from 'react'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import NumberButton from './number-button'
 
-const NUMBERS = [ 1, 2, 3 ];
+const NUMBERS = [1, 2, 3]
 
 interface InputsProps {
 	inputString: string
@@ -17,35 +17,59 @@ interface InputsProps {
 	selectedNumber?: number
 }
 const Inputs: FunctionComponent<InputsProps> = (props: InputsProps) => {
-	const { inputString, isChecked, onChangeTextInput, onPressCheckbox, onPressNumber, onPressReload, onPressSaveSsr, selectedNumber } = props;
-	const insets = useSafeAreaInsets();
+	const {
+		inputString,
+		isChecked,
+		onChangeTextInput,
+		onPressCheckbox,
+		onPressNumber,
+		onPressReload,
+		onPressSaveSsr,
+		selectedNumber
+	} = props
+	const insets = useSafeAreaInsets()
 
 	return (
-		<ScrollView style={styles.contentScroll} contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
-				<View style={styles.numbersContainer}>
-					{ NUMBERS.map((number, index) => (
-						<NumberButton key={number} index={index} number={number} onPress={onPressNumber} selected={selectedNumber === number}/>
-					)) }
-				</View>
-				<View style={styles.inputContainer}>
-					<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString}/>
-				</View>
-				<View style={styles.checkboxContainer}>
-					<TouchableOpacity style={[styles.checkbox, {
-						backgroundColor: isChecked ? COLOR : undefined
-					}]} onPress={onPressCheckbox}/>
-					<Text style={styles.checkboxLabel}>Boolean example</Text>
-				</View>
-				<TouchableOpacity style={styles.reloadContainer} onPress={onPressReload}>
-					<Text style={styles.reload}>Reload</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.saveSsrContainer} onPress={onPressSaveSsr}>
-					<Text style={styles.saveSsr}>Save in SSR</Text>
-				</TouchableOpacity>
-			</ScrollView>
+		<ScrollView
+			style={styles.contentScroll}
+			contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
+		>
+			<View style={styles.numbersContainer}>
+				{NUMBERS.map((number, index) => (
+					<NumberButton
+						key={number}
+						index={index}
+						number={number}
+						onPress={onPressNumber}
+						selected={selectedNumber === number}
+					/>
+				))}
+			</View>
+			<View style={styles.inputContainer}>
+				<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString} />
+			</View>
+			<View style={styles.checkboxContainer}>
+				<TouchableOpacity
+					style={[
+						styles.checkbox,
+						{
+							backgroundColor: isChecked ? COLOR : undefined
+						}
+					]}
+					onPress={onPressCheckbox}
+				/>
+				<Text style={styles.checkboxLabel}>Boolean example</Text>
+			</View>
+			<TouchableOpacity style={styles.reloadContainer} onPress={onPressReload}>
+				<Text style={styles.reload}>Reload</Text>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.saveSsrContainer} onPress={onPressSaveSsr}>
+				<Text style={styles.saveSsr}>Save in SSR</Text>
+			</TouchableOpacity>
+		</ScrollView>
 	)
-};
-export default Inputs;
+}
+export default Inputs
 
 const styles = StyleSheet.create({
 	contentScroll: {
@@ -146,4 +170,4 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		color: COLOR
 	}
-});
+})

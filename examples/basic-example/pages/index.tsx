@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { usePilot } from '@waveplay/pilot';
-import Head from 'next/head';
-import { useSafeAreaInsets } from '../core/use-safe-area';
-import stashy from '@waveplay/stashy';
-import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import Inputs from '../components/inputs';
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { usePilot } from '@waveplay/pilot'
+import Head from 'next/head'
+import { useSafeAreaInsets } from '../core/use-safe-area'
+import stashy from '@waveplay/stashy'
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next'
+import Inputs from '../components/inputs'
 
-const KEY_BOOLEAN = 'boolean-example';
-const KEY_NUMBER = 'selectedNum';
-const KEY_STRING = 'input-string';
+const KEY_BOOLEAN = 'boolean-example'
+const KEY_NUMBER = 'selectedNum'
+const KEY_STRING = 'input-string'
 
 interface HomeProps {
 	keyBoolean?: boolean
@@ -17,46 +17,42 @@ interface HomeProps {
 	keyString?: string
 }
 const Home: NextPage<HomeProps> = (props: HomeProps) => {
-	const {
-		keyBoolean = false,
-		keyNumber = 0,
-		keyString = ''
-	} = props;
+	const { keyBoolean = false, keyNumber = 0, keyString = '' } = props
 
 	// Hooks
-	const pilot = usePilot();
-	const insets = useSafeAreaInsets();
+	const pilot = usePilot()
+	const insets = useSafeAreaInsets()
 
 	// Local state to show immediate changes
-	const [ isChecked, setChecked ] = useState(keyBoolean);
-	const [ inputString, setInputString ] = useState(keyString);
-	const [ selectedNumber, setSelectedNumber ] = useState<number | undefined>(keyNumber);
+	const [isChecked, setChecked] = useState(keyBoolean)
+	const [inputString, setInputString] = useState(keyString)
+	const [selectedNumber, setSelectedNumber] = useState<number | undefined>(keyNumber)
 
 	// This will restore the selected values from previous session
 	useEffect(() => {
-		(async () => {
-			setChecked(await stashy.getBooleanAsync(KEY_BOOLEAN));
-			setInputString(await stashy.getStringAsync(KEY_STRING));
-			setSelectedNumber(await stashy.getNumberAsync(KEY_NUMBER));
-		})();
-	}, []);
+		;(async () => {
+			setChecked(await stashy.getBooleanAsync(KEY_BOOLEAN))
+			setInputString(await stashy.getStringAsync(KEY_STRING))
+			setSelectedNumber(await stashy.getNumberAsync(KEY_NUMBER))
+		})()
+	}, [])
 
 	// Just a simple example of how to store values of different types
 	const onChangeTextInput = async (text: string) => {
-		await stashy.set(KEY_STRING, text);
-		setInputString(text);
-	};
+		await stashy.set(KEY_STRING, text)
+		setInputString(text)
+	}
 	const onPressCheckbox = () => {
-		setChecked(!isChecked);
-		stashy.set(KEY_BOOLEAN, !isChecked);
-	};
+		setChecked(!isChecked)
+		stashy.set(KEY_BOOLEAN, !isChecked)
+	}
 	const onPressNumber = (number: number) => {
-		setSelectedNumber(number);
-		stashy.set(KEY_NUMBER, number);
-	};
+		setSelectedNumber(number)
+		stashy.set(KEY_NUMBER, number)
+	}
 	const onPressReload = () => {
-		pilot.reload();
-	};
+		pilot.reload()
+	}
 	const onPressSaveSsr = () => {
 		pilot.fly({
 			pathname: '/save',
@@ -65,8 +61,8 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 				[KEY_NUMBER]: String(selectedNumber),
 				[KEY_STRING]: inputString
 			}
-		});
-	};
+		})
+	}
 
 	return (
 		<View style={styles.container}>
@@ -75,7 +71,9 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 			</Head>
 			<View style={[styles.headerContainer, { paddingTop: insets.top }]}>
 				<Text style={styles.title}>Stashy: Basic Example</Text>
-				<Text style={styles.description}>Change the values below and they will be saved for the next time you open this app</Text>
+				<Text style={styles.description}>
+					Change the values below and they will be saved for the next time you open this app
+				</Text>
 			</View>
 			<Inputs
 				isChecked={isChecked}
@@ -85,35 +83,38 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 				onPressNumber={onPressNumber}
 				onPressReload={onPressReload}
 				onPressSaveSsr={onPressSaveSsr}
-				selectedNumber={selectedNumber}/>
+				selectedNumber={selectedNumber}
+			/>
 		</View>
 	)
-};
-export default Home;
+}
+export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomeProps>> => {
+export const getServerSideProps: GetServerSideProps = async (
+	context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<HomeProps>> => {
 	return {
 		props: {
 			keyBoolean: stashy.getBoolean(KEY_BOOLEAN, { context }) ?? null,
 			keyNumber: stashy.getNumber(KEY_NUMBER, { context }) ?? null,
 			keyString: stashy.getString(KEY_STRING, { context }) ?? null
 		}
-	};
-};
- 
+	}
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fafafa'
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#fafafa'
+	},
 	headerContainer: {
 		width: '100%',
 		backgroundColor: '#fff',
 		display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
 		shadowColor: '#000',
-		shadowOpacity: .06,
+		shadowOpacity: 0.06,
 		shadowOffset: { width: 0, height: 6 },
 		shadowRadius: 2,
 		boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
@@ -131,4 +132,4 @@ const styles = StyleSheet.create({
 		paddingLeft: 24,
 		paddingRight: 24
 	}
-});
+})

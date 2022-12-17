@@ -25,14 +25,14 @@ yarn add @waveplay/stashy
 ## Basic usage
 
 ```ts
-import stashy from '@waveplay/stashy';
+import stashy from '@waveplay/stashy'
 
 // Get a value from storage
-const displayName = stashy.getString('name');
-console.log(`Your username is ${displayName}`);
+const displayName = stashy.getString('name')
+console.log(`Your username is ${displayName}`)
 
 // Update a value in storage
-stashy.set('name', 'Pkmmte Xeleon');
+stashy.set('name', 'Pkmmte Xeleon')
 ```
 
 ## Credits

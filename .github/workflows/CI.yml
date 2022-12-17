@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           cache: 'pnpm'
-          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
       - name: PNPM install
         run: pnpm install --frozen-lockfile

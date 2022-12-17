@@ -1,7 +1,7 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next'
 
 export interface StashyOptions {
 	backend?: 'native' | 'ssr' | 'web'

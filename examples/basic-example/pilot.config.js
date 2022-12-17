@@ -1,3 +1,3 @@
 module.exports = {
 	logLevel: 'debug'
-};
+}

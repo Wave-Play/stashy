@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 const App = ({ Component, pageProps }: AppProps) => {
-  return (
+	return (
 		<SafeAreaProvider>
 			<Component {...pageProps} />
 		</SafeAreaProvider>
