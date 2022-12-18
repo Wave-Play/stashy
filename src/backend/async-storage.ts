@@ -56,7 +56,7 @@ export default class AsyncStorageBackend implements StashyBackend {
 	}
 
 	public getString(key: string): string {
-		// @ts-ignore
+		// @ts-expect-error
 		return AsyncStorage.getItem(this._key(key))
 	}
 
