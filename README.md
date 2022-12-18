@@ -27,7 +27,7 @@ console.log(`Your username is ${displayName}`)
 stashy.set('name', 'Pkmmte Xeleon')
 ```
 
-See the [sample project]() for more usage examples.
+See the [sample project](https://github.com/Wave-Play/stashy/tree/master/examples/basic-example) for more usage examples.
 
 ## API reference
 
