@@ -59,24 +59,24 @@ export class Stashy {
 
 	private _backend(options?: StashyOptions): StashyBackend {
 		if (options?.backend === 'native') {
-			this._log('debug', `forced native backend!`)
+			this._log('info', `forced native backend!`)
 			return this._backendNative
 		} else if (options?.backend === 'ssr') {
-			this._log('debug', `forced server side backend!`)
+			this._log('info', `forced server side backend!`)
 			return this._backendSsr
 		} else if (options?.backend === 'web') {
-			this._log('debug', `forced web client backend!`)
+			this._log('info', `forced web client backend!`)
 			return this._backendWeb
 		}
 
 		if (isNative()) {
-			this._log('debug', `using native backend...`)
+			this._log('info', `using native backend...`)
 			return this._backendNative
 		} else if (isSSR()) {
-			this._log('debug', `using server side backend...`)
+			this._log('info', `using server side backend...`)
 			return this._backendSsr
 		} else {
-			this._log('debug', `using web client backend...`)
+			this._log('info', `using web client backend...`)
 			return this._backendWeb
 		}
 	}
@@ -87,17 +87,17 @@ export class Stashy {
 	}
 
 	public clearAll(options?: StashyOptions) {
-		this._log('trace', `clearAll() with options:`, options)
+		this._log('debug', `clearAll() with options:`, options)
 		this._backend(options).clearAll(options)
 	}
 
 	public delete(key: string, options?: StashyOptions) {
-		this._log('trace', `delete(${key}) with options:`, options)
+		this._log('debug', `delete(${key}) with options:`, options)
 		this._backend(options).delete(key, options)
 	}
 
 	public get<T>(key: string, options?: StashyOptions): T {
-		this._log('trace', `get(${key}) with options:`, options)
+		this._log('debug', `get(${key}) with options:`, options)
 		const encodedValue = this._backend(options).getString(key, options)
 		let value = null
 		if (typeof encodedValue === 'string') {
@@ -105,62 +105,62 @@ export class Stashy {
 		} else if (encodedValue) {
 			value = encodedValue
 		}
-		this._log('debug', `get(${key}) value is:`, value)
+		this._log('info', `get(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public async getAsync<T>(key: string, options?: StashyOptions): Promise<T> {
-		this._log('trace', `getAsync(${key}) with options:`, options)
+		this._log('debug', `getAsync(${key}) with options:`, options)
 		const encodedValue = await this._backend(options).getStringAsync(key, options)
 		const value = encodedValue ? JSON.parse(encodedValue) : null
-		this._log('debug', `getAsync(${key}) value is:`, value)
+		this._log('info', `getAsync(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public getBoolean(key: string, options?: StashyOptions): boolean {
-		this._log('trace', `getBoolean(${key}) with options:`, options)
+		this._log('debug', `getBoolean(${key}) with options:`, options)
 		const value = this._backend(options).getBoolean(key, options)
-		this._log('debug', `getBoolean(${key}) value is:`, value)
+		this._log('info', `getBoolean(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public async getBooleanAsync(key: string, options?: StashyOptions): Promise<boolean> {
-		this._log('trace', `getBooleanAsync(${key}) with options:`, options)
+		this._log('debug', `getBooleanAsync(${key}) with options:`, options)
 		const value = await this._backend(options).getBooleanAsync(key, options)
-		this._log('debug', `getBooleanAsync(${key}) value is:`, value)
+		this._log('info', `getBooleanAsync(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public getNumber(key: string, options?: StashyOptions): number {
-		this._log('trace', `getNumber(${key}) with options:`, options)
+		this._log('debug', `getNumber(${key}) with options:`, options)
 		const value = this._backend(options).getNumber(key, options)
-		this._log('debug', `getNumber(${key}) value is:`, value)
+		this._log('info', `getNumber(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public async getNumberAsync(key: string, options?: StashyOptions): Promise<number> {
-		this._log('trace', `getNumberAsync(${key}) with options:`, options)
+		this._log('debug', `getNumberAsync(${key}) with options:`, options)
 		const value = await this._backend(options).getNumberAsync(key, options)
-		this._log('debug', `getNumberAsync(${key}) value is:`, value)
+		this._log('info', `getNumberAsync(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public getString(key: string, options?: StashyOptions): string {
-		this._log('trace', `getString(${key}) with options:`, options)
+		this._log('debug', `getString(${key}) with options:`, options)
 		const value = this._backend(options).getString(key, options)
-		this._log('debug', `getString(${key}) value is:`, value)
+		this._log('info', `getString(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public async getStringAsync(key: string, options?: StashyOptions): Promise<string> {
-		this._log('trace', `getStringAsync(${key}) with options:`, options)
+		this._log('debug', `getStringAsync(${key}) with options:`, options)
 		const value = await this._backend(options).getStringAsync(key, options)
-		this._log('debug', `getStringAsync(${key}) value is:`, value)
+		this._log('info', `getStringAsync(${key}) value is:`, value)
 		return value ?? options?.default
 	}
 
 	public set(key: string, value: boolean | number | string | any, options?: StashyOptions) {
-		this._log('trace', `set(${key}) with options:`, options)
+		this._log('debug', `set(${key}) with options:`, options)
 		const isObject = typeof value === 'object'
 		const encodedValue = isObject ? JSON.stringify(value) : value
 		this._backend(options).set(key, encodedValue, options)
