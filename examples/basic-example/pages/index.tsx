@@ -3,13 +3,39 @@ import { StyleSheet, Text, View } from 'react-native'
 import { usePilot } from '@waveplay/pilot'
 import Head from 'next/head'
 import { useSafeAreaInsets } from '../core/use-safe-area'
-import stashy from '@waveplay/stashy'
+import stashy, { Stashy } from '@waveplay/stashy'
+import { EnvBackend } from '@waveplay/stashy/backend/env'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next'
 import Inputs from '../components/inputs'
 
 const KEY_BOOLEAN = 'boolean-example'
 const KEY_NUMBER = 'selectedNum'
 const KEY_STRING = 'input-string'
+
+const envStashy = new Stashy({
+	backend: new EnvBackend({
+		exampleBackend: {
+			doc: 'This is an example environment variable only available on the server',
+			format: String,
+			default: process.env.EXAMPLE_BACKEND,
+			env: 'EXAMPLE_BACKEND'
+		},
+		public: {
+			nextExample: {
+				doc: 'This is an example environment variable available on all environments: server, browser, and native app',
+				format: String,
+				default: process.env.NEXT_PUBLIC_EXAMPLE_FRONTEND,
+				env: 'NEXT_PUBLIC_EXAMPLE_FRONTEND'
+			},
+			pilotExample: {
+				doc: 'This is an example environment variable available on only the server and native app',
+				format: String,
+				default: process.env.PILOT_PUBLIC_EXAMPLE_APP,
+				env: 'PILOT_PUBLIC_EXAMPLE_APP'
+			}
+		}
+	})
+})
 
 interface HomeProps {
 	keyBoolean?: boolean
@@ -33,9 +59,9 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 	useEffect(() => {
 		(async () => {
 			setEnvValues({
-				EXAMPLE_BACKEND: process.env.EXAMPLE_BACKEND, // This server side value is not available on the client
-				NEXT_PUBLIC_EXAMPLE_FRONTEND: process.env.NEXT_PUBLIC_EXAMPLE_FRONTEND,
-				PILOT_PUBLIC_EXAMPLE_APP: process.env.PILOT_PUBLIC_EXAMPLE_APP
+				EXAMPLE_BACKEND: envStashy.getString('exampleBackend'),
+				NEXT_PUBLIC_EXAMPLE_FRONTEND: envStashy.getString('public.nextExample'),
+				PILOT_PUBLIC_EXAMPLE_APP: envStashy.getString('public.pilotExample')
 			})
 			setChecked(await stashy.getBooleanAsync(KEY_BOOLEAN))
 			setInputString(await stashy.getStringAsync(KEY_STRING))
