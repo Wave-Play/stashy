@@ -1,7 +1,7 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
-import { StashyBackend } from './_base'
+import { StashyBackend, StashyBackendInitOptions } from './_base'
 
 type EnvDataItem = {
 	doc?: string
@@ -45,8 +45,10 @@ export class EnvBackend implements StashyBackend {
 		}
 	}
 
-	_init() {
+	_init(options: StashyBackendInitOptions) {
 		this._data = extractValue(null, this._model, null)
+		const id = `stashy${options.id ? '-' + options?.id : ''}`
+		options.logger?.debug?.(`[${id}] Initialized EnvBackend with data: ${JSON.stringify(this._data)}`)
 	}
 
 	clearAll(): void {

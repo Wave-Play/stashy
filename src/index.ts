@@ -6,14 +6,7 @@ import CookieBackend from './backend/cookie'
 import LocalStorageBackend from './backend/local-storage'
 import { Platform } from 'react-native'
 import AsyncStorageBackend from './backend/async-storage'
-
-export interface Logger {
-	debug: (...args: any[]) => void
-	error: (...args: any[]) => void
-	info: (...args: any[]) => void
-	warn: (...args: any[]) => void
-	trace: (...args: any[]) => void
-}
+import type { Logger } from './types'
 
 interface StashyConstructor {
 	backend?:
@@ -55,10 +48,10 @@ export class Stashy {
 		this._backendNative = backend?.['native'] ?? (backend?.['_init'] ? backend : getDefaultBackend('native'))
 		this._backendSsr = backend?.['ssr'] ?? (backend?.['_init'] ? backend : getDefaultBackend('ssr'))
 		this._backendWeb = backend?.['web'] ?? (backend?.['_init'] ? backend : getDefaultBackend('web'))
-		this._backend()._init({ id })
+		this._backend()._init({ id, logger, stashy: this })
 	}
 
-	private _backend(options?: StashyOptions): StashyBackend {
+	protected _backend(options?: StashyOptions): StashyBackend {
 		if (options?.backend === 'native') {
 			this._log('info', `forced native backend!`)
 			return this._backendNative
@@ -71,18 +64,18 @@ export class Stashy {
 		}
 
 		if (isNative()) {
-			this._log('info', `using native backend...`)
+			this._log('debug', `using native backend...`)
 			return this._backendNative
 		} else if (isSSR()) {
-			this._log('info', `using server side backend...`)
+			this._log('debug', `using server side backend...`)
 			return this._backendSsr
 		} else {
-			this._log('info', `using web client backend...`)
+			this._log('debug', `using web client backend...`)
 			return this._backendWeb
 		}
 	}
 
-	private _log(level: 'trace' | 'debug' | 'info' | 'warn' | 'error', message?: string, ...args: any[]) {
+	protected _log(level: 'trace' | 'debug' | 'info' | 'warn' | 'error', message?: string, ...args: any[]) {
 		const id = `stashy${this._id ? '-' + this._id : ''}`
 		this._logger?.[level]?.(`[${id}] ` + message, ...args)
 	}
