@@ -1,7 +1,9 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next'
+import type { Stashy } from '..'
+import type { Logger } from '../types'
 
 export interface StashyOptions {
 	backend?: 'native' | 'ssr' | 'web'
@@ -16,6 +18,8 @@ export interface StashyOptions {
 
 export interface StashyBackendInitOptions {
 	id?: string
+	logger?: Logger
+	stashy: Stashy
 }
 
 export interface StashyBackend {

@@ -18,89 +18,64 @@
 	"sideEffects": false,
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
-	"release": {
-		"branches": [
-			"main",
-			"next"
-		]
-	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"files": [
-		"src/",
+		"backend/",
 		"dist/",
+		"src/",
+		"jotai.js",
+		"jotai.d.ts",
 		"LICENSE",
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsup src --dts --sourcemap --external react-native,react-native-mmkv --format esm,cjs --minify",
+		"build": "tsup",
+		"lint": "pnpm lint:eslint && pnpm lint:language && pnpm lint:style",
+		"lint:eslint": "eslint . --ext js,jsx,ts,tsx --max-warnings=0 --config .eslintrc.json --no-eslintrc",
+		"lint:language": "alex .",
+		"lint:style": "prettier --write .",
 		"semantic-release": "semantic-release"
 	},
 	"dependencies": {
-		"@react-native-async-storage/async-storage": "^1.17.10",
-		"jotai": "1.8.4",
-		"nookies": "2.5.2",
-		"pino": "8.5.0"
+		"@react-native-async-storage/async-storage": "1.17.11",
+		"nookies": "2.5.2"
 	},
 	"peerDependencies": {
-		"react-native-mmkv": "2.4.3"
+		"jotai": ">=1.8.4",
+		"react-native-mmkv": ">=2.4.3"
+	},
+	"peerDependenciesMeta": {
+		"jotai": {
+			"optional": true
+		},
+		"react-native-mmkv": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
-		"@types/next": "^9.0.0",
-		"@types/react": "^18.0.21",
-		"@types/react-native": "^0.70.3",
-		"@typescript-eslint/eslint-plugin": "5.6.0",
-		"@typescript-eslint/parser": "5.6.0",
-		"eslint-plugin-import": "2.25.4",
-		"eslint-plugin-jest": "25.3.0",
-		"semantic-release": "18.0.1",
+		"@babel/core": "^7.20.5",
+		"@babel/eslint-parser": "^7.19.1",
+		"@babel/preset-react": "^7.18.6",
+		"@types/react": "18.0.26",
+		"@types/react-native": "0.70.8",
+		"@typescript-eslint/eslint-plugin": "5.46.1",
+		"@typescript-eslint/parser": "5.46.1",
+		"alex": "11.0.0",
+		"eslint": "8.29.0",
+		"eslint-plugin-eslint-plugin": "^5.0.6",
+		"eslint-plugin-import": "2.26.0",
+		"eslint-plugin-jest": "27.1.7",
+		"eslint-plugin-react": "^7.31.11",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"next": "13.0.7",
+		"npm": "^9.2.0",
+		"prettier": "2.8.1",
+		"semantic-release": "19.0.5",
 		"semantic-release-cli": "5.4.4",
-		"tsup": "^6.2.3",
-		"typescript": "4.6.2"
-	},
-	"eslint": {
-		"env": {
-			"es6": true,
-			"jest": true,
-			"node": true
-		},
-		"parser": "@typescript-eslint/parser",
-		"parserOptions": {
-			"ecmaVersion": 2019,
-			"sourceType": "module"
-		},
-		"extends": [
-			"eslint:recommended",
-			"plugin:jest/recommended",
-			"plugin:import/recommended",
-			"plugin:@typescript-eslint/eslint-recommended",
-			"plugin:@typescript-eslint/recommended"
-		],
-		"rules": {
-			"arrow-body-style": [
-				"error",
-				"always"
-			],
-			"curly": "error",
-			"import/order": [
-				"error",
-				{
-					"newlines-between": "always"
-				}
-			]
-		},
-		"settings": {
-			"import/extensions": [
-				".ts"
-			],
-			"import/resolver": {
-				"node": {
-					"extensions": [
-						".ts"
-					]
-				}
-			}
-		}
+		"tsup": "6.5.0",
+		"turbo": "1.6.3",
+		"typescript": "4.9.4"
 	}
 }

@@ -1,12 +1,13 @@
-import { COLOR, COLOR_BACKGROUND } from '../core/constants';
-import { useSafeAreaInsets } from '../core/use-safe-area';
-import React, { FunctionComponent } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import NumberButton from './number-button';
+import { COLOR, COLOR_BACKGROUND } from '../core/constants'
+import { useSafeAreaInsets } from '../core/use-safe-area'
+import React, { FunctionComponent } from 'react'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import NumberButton from './number-button'
 
-const NUMBERS = [ 1, 2, 3 ];
+const NUMBERS = [1, 2, 3]
 
 interface InputsProps {
+	envValues: { [key: string]: string | undefined }
 	inputString: string
 	isChecked: boolean
 	onChangeTextInput: (text: string) => void
@@ -17,43 +18,89 @@ interface InputsProps {
 	selectedNumber?: number
 }
 const Inputs: FunctionComponent<InputsProps> = (props: InputsProps) => {
-	const { inputString, isChecked, onChangeTextInput, onPressCheckbox, onPressNumber, onPressReload, onPressSaveSsr, selectedNumber } = props;
-	const insets = useSafeAreaInsets();
+	const {
+		envValues,
+		inputString,
+		isChecked,
+		onChangeTextInput,
+		onPressCheckbox,
+		onPressNumber,
+		onPressReload,
+		onPressSaveSsr,
+		selectedNumber
+	} = props
+	const insets = useSafeAreaInsets()
+	const hasEnvValues = Object.values(envValues).filter(Boolean).length > 0
 
 	return (
-		<ScrollView style={styles.contentScroll} contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
+		<ScrollView
+			style={styles.contentScroll}
+			contentContainerStyle={[styles.contentScrollContainer, { paddingBottom: insets.bottom }]}
+		>
+			<View style={styles.contentContainer}>
 				<View style={styles.numbersContainer}>
-					{ NUMBERS.map((number, index) => (
-						<NumberButton key={number} index={index} number={number} onPress={onPressNumber} selected={selectedNumber === number}/>
-					)) }
+					{NUMBERS.map((number, index) => (
+						<NumberButton
+							key={number}
+							index={index}
+							number={number}
+							onPress={onPressNumber}
+							selected={selectedNumber === number}
+						/>
+					))}
 				</View>
 				<View style={styles.inputContainer}>
-					<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString}/>
+					<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString ?? undefined} />
 				</View>
 				<View style={styles.checkboxContainer}>
-					<TouchableOpacity style={[styles.checkbox, {
-						backgroundColor: isChecked ? COLOR : undefined
-					}]} onPress={onPressCheckbox}/>
+					<TouchableOpacity
+						style={[
+							styles.checkbox,
+							{
+								backgroundColor: isChecked ? COLOR : undefined
+							}
+						]}
+						onPress={onPressCheckbox}
+					/>
 					<Text style={styles.checkboxLabel}>Boolean example</Text>
 				</View>
+				{hasEnvValues ? (
+					<View style={styles.envContainer}>
+						<TextInput
+							style={styles.env}
+							editable={false}
+							multiline={true}
+							value={JSON.stringify(envValues, undefined, 2)}
+						></TextInput>
+					</View>
+				) : null}
 				<TouchableOpacity style={styles.reloadContainer} onPress={onPressReload}>
 					<Text style={styles.reload}>Reload</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.saveSsrContainer} onPress={onPressSaveSsr}>
 					<Text style={styles.saveSsr}>Save in SSR</Text>
 				</TouchableOpacity>
-			</ScrollView>
+			</View>
+		</ScrollView>
 	)
-};
-export default Inputs;
+}
+export default Inputs
 
 const styles = StyleSheet.create({
 	contentScroll: {
 		width: '100%',
 		flex: 1
 	},
+	contentScrollContainer: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
 	contentContainer: {
 		width: '100%',
+		maxWidth: 800,
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -122,6 +169,29 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: '400'
 	},
+	envContainer: {
+		width: '100%',
+		marginTop: 24,
+		paddingLeft: 16,
+		paddingRight: 16
+	},
+	env: {
+		width: '100%',
+		height: 224,
+		backgroundColor: 'white',
+		borderRadius: 8,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2
+		},
+		shadowOpacity: 0.06,
+		shadowRadius: 4,
+		paddingTop: 12,
+		paddingLeft: 16,
+		paddingRight: 16,
+		paddingBottom: 12
+	},
 	reloadContainer: {
 		width: '100%',
 		display: 'flex',
@@ -146,4 +216,4 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		color: COLOR
 	}
-});
+})

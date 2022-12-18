@@ -1,6 +1,6 @@
 <h1 align="center">Stashy: Basic Example</h1>
 
-This is a simple TypeScript project using NextJS and Expo to show how to save and retrieve data from Stashy in the browser, React Native, and NextJS server side.
+This is a TypeScript project using Pilot.js (Next.js + Expo) to show how to save and retrieve data from Stashy in the browser, React Native, and Next.js server side.
 
 ## Usage
 

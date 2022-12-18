@@ -1,5 +1,7 @@
 node_modules/
 .expo/
+.next/
+.pilot/
 dist/
 npm-debug.*
 *.jks
