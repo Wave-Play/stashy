@@ -44,6 +44,7 @@ export class Stashy {
 		const { backend, id, logger } = options ?? {}
 
 		// IDs are often used to separate out data storage into different entry groups
+		// It's also useful for distinguishing between multiple instances of Stashy in logs
 		this._id = id
 
 		// Set logger to preference level
