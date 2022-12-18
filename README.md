@@ -31,20 +31,19 @@ See the [sample project](https://github.com/Wave-Play/stashy/tree/master/example
 
 ## API reference
 
-| Function | Description |
-| --- | --- |
-| `clearAll` | Clears all data from the backend. |
-| `delete` | Deletes the value for the given key. |
-| `get` | Gets the value for the given key. |
-| `getAsync` | Gets the value for the given key asynchronously. |
-| `getBoolean` | Gets the boolean value for the given key. |
+| Function          | Description                                              |
+| ----------------- | -------------------------------------------------------- |
+| `clearAll`        | Clears all data from the backend.                        |
+| `delete`          | Deletes the value for the given key.                     |
+| `get`             | Gets the value for the given key.                        |
+| `getAsync`        | Gets the value for the given key asynchronously.         |
+| `getBoolean`      | Gets the boolean value for the given key.                |
 | `getBooleanAsync` | Gets the boolean value for the given key asynchronously. |
-| `getNumber` | Gets the number value for the given key. |
-| `getNumberAsync` | Gets the number value for the given key asynchronously. |
-| `getString` | Gets the string value for the given key. |
-| `getStringAsync` | Gets the string value for the given key asynchronously. |
-| `set` | Sets the value for the given key. |
-
+| `getNumber`       | Gets the number value for the given key.                 |
+| `getNumberAsync`  | Gets the number value for the given key asynchronously.  |
+| `getString`       | Gets the string value for the given key.                 |
+| `getStringAsync`  | Gets the string value for the given key asynchronously.  |
+| `set`             | Sets the value for the given key.                        |
 
 ## Backends
 

@@ -57,7 +57,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 
 	// This will restore the selected values from previous client session
 	useEffect(() => {
-		(async () => {
+		;(async () => {
 			setEnvValues({
 				EXAMPLE_BACKEND: envStashy.getString('exampleBackend'),
 				NEXT_PUBLIC_EXAMPLE_FRONTEND: envStashy.getString('public.nextExample'),
