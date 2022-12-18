@@ -111,6 +111,22 @@ Backed by `react-native-mmkv`. Extremely fast and efficient storage for React Na
 import { MmkvBackend } from '@waveplay/stashy/backend/mmkv'
 ```
 
+## Debugging
+
+You can pass your own logger to Stashy when creating a new instance and it will be used to log each and every event. This is useful for debugging backend and environment issues. 
+
+The `id` property is included in each log message to help you differentiate between multiple instances of Stashy.
+
+```ts
+import { Stashy } from '@waveplay/stashy'
+import pino from 'pino'
+
+const stashy = new Stashy({
+	id: 'my-stash',
+	logger: pino({ level: 'debug' })
+})
+```
+
 ## Credits
 
 This project was originally developed for [WavePlay](https://waveplay.com).
