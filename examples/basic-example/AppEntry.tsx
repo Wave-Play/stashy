@@ -9,7 +9,7 @@ loadEnv()
 function App() {
 	return (
 		<SafeAreaProvider>
-			<PilotArea/>
+			<PilotArea />
 		</SafeAreaProvider>
 	)
 }

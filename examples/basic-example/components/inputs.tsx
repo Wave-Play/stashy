@@ -7,7 +7,7 @@ import NumberButton from './number-button'
 const NUMBERS = [1, 2, 3]
 
 interface InputsProps {
-	envValues: {[key: string]: string | undefined}
+	envValues: { [key: string]: string | undefined }
 	inputString: string
 	isChecked: boolean
 	onChangeTextInput: (text: string) => void
@@ -64,12 +64,16 @@ const Inputs: FunctionComponent<InputsProps> = (props: InputsProps) => {
 					/>
 					<Text style={styles.checkboxLabel}>Boolean example</Text>
 				</View>
-				{ hasEnvValues
-					? <View style={styles.envContainer}>
-							<TextInput style={styles.env} editable={false} multiline={true} value={JSON.stringify(envValues, undefined, 2)}></TextInput>
-						</View>
-					: null
-				}
+				{hasEnvValues ? (
+					<View style={styles.envContainer}>
+						<TextInput
+							style={styles.env}
+							editable={false}
+							multiline={true}
+							value={JSON.stringify(envValues, undefined, 2)}
+						></TextInput>
+					</View>
+				) : null}
 				<TouchableOpacity style={styles.reloadContainer} onPress={onPressReload}>
 					<Text style={styles.reload}>Reload</Text>
 				</TouchableOpacity>
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
 			width: 0,
 			height: 2
 		},
-		shadowOpacity: .06,
+		shadowOpacity: 0.06,
 		shadowRadius: 4,
 		paddingTop: 12,
 		paddingLeft: 16,
