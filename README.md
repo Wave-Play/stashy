@@ -54,20 +54,20 @@ import { Stashy } from '@waveplay/stashy'
 import { StashyBackend } from '@waveplay/stashy/backend'
 
 class CustomBackend implements StashyBackend {
-	// ... your custom backend implementation
+  // ... your custom backend implementation
 }
 
 const stashy = new Stashy({
-	backend: new CustomBackend()
+  backend: new CustomBackend()
 })
 
 // or with different backends per environment
 const stashy = new Stashy({
-	backend: {
-		native: new MmkvBackend(),
-		ssr: new CookieBackend(),
-		web: new CustomBackend()
-	}
+  backend: {
+    native: new MmkvBackend(),
+    ssr: new CookieBackend(),
+    web: new CustomBackend()
+  }
 })
 ```
 
@@ -89,11 +89,13 @@ import { CookieBackend } from '@waveplay/stashy/backend/cookie'
 
 #### Env
 
-Meant to use `process.env` variables. Supports dot notation for nested objects. This will not load the `.env` file for you. Use with `dotenv`if you need to load the `.env` file. Frameworks like [Next.js](https://nextjs.org/) and [Pilot.js](https://github.com/Wave-Play/pilot/) do this automatically.
+Meant to use `process.env` variables. Supports dot notation for nested objects. 
 
 ```ts
 import { EnvBackend } from '@waveplay/stashy/backend/env'
 ```
+
+> **Note:** This will not load the `.env` file for you. Use with [dotenv](https://github.com/motdotla/dotenv) if you need to load the `.env` file. Frameworks like [Next.js](https://nextjs.org/) and [Pilot.js](https://github.com/Wave-Play/pilot/) do this automatically.
 
 #### LocalStorage
 
@@ -113,7 +115,7 @@ import { MmkvBackend } from '@waveplay/stashy/backend/mmkv'
 
 ## Debugging
 
-You can pass your own logger to Stashy when creating a new instance and it will be used to log each and every event. This is useful for debugging backend and environment issues. 
+You can pass your own logger to Stashy when creating a new instance and it will be used to log events. This is useful for debugging backend and environment issues. 
 
 The `id` property is included in each log message to help you differentiate between multiple instances of Stashy.
 
@@ -122,8 +124,8 @@ import { Stashy } from '@waveplay/stashy'
 import pino from 'pino'
 
 const stashy = new Stashy({
-	id: 'my-stash',
-	logger: pino({ level: 'debug' })
+  id: 'my-stash',
+  logger: pino({ level: 'debug' })
 })
 ```
 
