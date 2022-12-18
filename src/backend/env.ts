@@ -18,7 +18,7 @@ type EnvModel = {
  * Backend that accepts a structured object similar to the "convict" library as the source of truth
  * This allows you to use Stashy syntax for your environment variables
  */
-export default class EnvBackend implements StashyBackend {
+export class EnvBackend implements StashyBackend {
 	private _data: { [key: string]: any }
 	private readonly _model: EnvModel
 
@@ -116,3 +116,4 @@ function extractValue(key: string | null, item: EnvDataItem | EnvModel | string,
 		throw new Error(`Invalid env key: ${key}`)
 	}
 }
+export default EnvBackend

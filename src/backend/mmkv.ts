@@ -16,7 +16,7 @@ interface MmkvBackendOptions {
  *
  * https://github.com/mrousavy/react-native-mmkv
  */
-export default class MmkvBackend implements StashyBackend {
+export class MmkvBackend implements StashyBackend {
 	private _initOptions?: MmkvBackendOptions
 	private _storage: MMKV
 
@@ -76,3 +76,4 @@ export default class MmkvBackend implements StashyBackend {
 		this.set(key, value)
 	}
 }
+export default MmkvBackend

@@ -6,7 +6,7 @@ import { StashyBackend, StashyBackendInitOptions } from './_base'
 /**
  * Basic localStorage-based storage. Great for web browsers!
  */
-export default class LocalStorageBackend implements StashyBackend {
+export class LocalStorageBackend implements StashyBackend {
 	private _id: string
 
 	public _init(options: StashyBackendInitOptions) {
@@ -69,3 +69,4 @@ export default class LocalStorageBackend implements StashyBackend {
 		this.set(key, value)
 	}
 }
+export default LocalStorageBackend

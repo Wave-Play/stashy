@@ -11,7 +11,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
  * Due to the nature of cookies, it is required that you pass `context` as an option with every call.
  * This is because cookies are stored per-request, and not per-process.
  */
-export default class CookieBackend implements StashyBackend {
+export class CookieBackend implements StashyBackend {
 	private _id: string
 
 	public _init(options: StashyBackendInitOptions) {
@@ -90,3 +90,4 @@ const validateOptions = (options?: StashyOptions) => {
 		throw new Error(`You must provide context in your options for this!`)
 	}
 }
+export default CookieBackend

@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
  * Basic AsyncStorage implementation.
  * Good start for native platforms, but we recommend using MMKV instead for better performance.
  */
-export default class AsyncStorageBackend implements StashyBackend {
+export class AsyncStorageBackend implements StashyBackend {
 	private _id: string
 
 	public _init(options: StashyBackendInitOptions) {
@@ -72,3 +72,4 @@ export default class AsyncStorageBackend implements StashyBackend {
 		return AsyncStorage.setItem(this._key(key), typeof value === 'string' ? value : String(value))
 	}
 }
+export default AsyncStorageBackend
