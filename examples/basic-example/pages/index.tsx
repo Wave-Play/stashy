@@ -24,13 +24,19 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 	const insets = useSafeAreaInsets()
 
 	// Local state to show immediate changes
+	const [envValues, setEnvValues] = useState({}) // Be careful not to use process.env directly here, as first render will be on the server
 	const [isChecked, setChecked] = useState(keyBoolean)
 	const [inputString, setInputString] = useState(keyString)
 	const [selectedNumber, setSelectedNumber] = useState<number | undefined>(keyNumber)
 
-	// This will restore the selected values from previous session
+	// This will restore the selected values from previous client session
 	useEffect(() => {
-		;(async () => {
+		(async () => {
+			setEnvValues({
+				EXAMPLE_BACKEND: process.env.EXAMPLE_BACKEND, // This server side value is not available on the client
+				NEXT_PUBLIC_EXAMPLE_FRONTEND: process.env.NEXT_PUBLIC_EXAMPLE_FRONTEND,
+				PILOT_PUBLIC_EXAMPLE_APP: process.env.PILOT_PUBLIC_EXAMPLE_APP
+			})
 			setChecked(await stashy.getBooleanAsync(KEY_BOOLEAN))
 			setInputString(await stashy.getStringAsync(KEY_STRING))
 			setSelectedNumber(await stashy.getNumberAsync(KEY_NUMBER))
@@ -76,6 +82,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 				</Text>
 			</View>
 			<Inputs
+				envValues={envValues}
 				isChecked={isChecked}
 				inputString={inputString}
 				onChangeTextInput={onChangeTextInput}
@@ -121,11 +128,16 @@ const styles = StyleSheet.create({
 		paddingBottom: 24
 	},
 	title: {
+		width: '100%',
+		maxWidth: 800,
 		fontSize: 24,
 		fontWeight: '600',
+		textAlign: 'center',
 		marginTop: 16
 	},
 	description: {
+		width: '100%',
+		maxWidth: 800,
 		fontSize: 16,
 		marginTop: 8,
 		textAlign: 'center',
