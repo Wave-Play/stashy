@@ -50,7 +50,7 @@ const Inputs: FunctionComponent<InputsProps> = (props: InputsProps) => {
 					))}
 				</View>
 				<View style={styles.inputContainer}>
-					<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString} />
+					<TextInput style={styles.input} onChangeText={onChangeTextInput} value={inputString ?? undefined} />
 				</View>
 				<View style={styles.checkboxContainer}>
 					<TouchableOpacity
