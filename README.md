@@ -4,17 +4,21 @@
 
 [![GitHub license](https://img.shields.io/github/license/Wave-Play/stashy?style=flat)](https://github.com/Wave-Play/stashy/blob/main/LICENSE) [![Tests](https://github.com/Wave-Play/stashy/workflows/CI/badge.svg)](https://github.com/Wave-Play/stashy/actions) ![npm](https://img.shields.io/npm/v/@waveplay/stashy) [![minizipped size](https://badgen.net/bundlephobia/minzip/@waveplay/stashy)](https://bundlephobia.com/result?p=@waveplay/stashy)
 
-**Flexible storage for Node, React Native, and the browser**
+**Storage API for Node, React Native, and the browser**
+
+Flexible and common storage API shared across environments. Stashy uses the best storage backend available for each environment.
 
 </div>
 
-## Install
+## Getting started
+
+Install the package:
 
 ```bash
 npm install @waveplay/stashy
 ```
 
-## Basic usage
+Use functions such as `get(key)` or `set(key, value)`. These will be delegated to the correct backend based on the environment your code is running in. 
 
 ```ts
 import stashy from '@waveplay/stashy'
@@ -24,6 +28,7 @@ const displayName = stashy.getString('name')
 console.log(`Your username is ${displayName}`)
 
 // Update a value in storage
+// It'll be saved and available when you come back later
 stashy.set('name', 'Pkmmte Xeleon')
 ```
 
@@ -73,7 +78,7 @@ const stashy = new Stashy({
 
 #### AsyncStorage
 
-This backend uses `@react-native-async-storage/async-storage` to store data. It is the default backend for native and only works with async functions such as `getStringAsync()`.
+This backend uses [@react-native-async-storage/async-storage](https://github.com/react-native-async-storage/async-storage) to store data. It is the default backend for native and only works with async functions such as `getStringAsync()`.
 
 ```ts
 import { AsyncStorageBackend } from '@waveplay/stashy/backend/async-storage'
@@ -107,7 +112,7 @@ import { LocalStorageBackend } from '@waveplay/stashy/backend/local-storage'
 
 #### MMKV
 
-Backed by `react-native-mmkv`. Extremely fast and efficient storage for React Native, but requires that you install `react-native-mmkv` separately. If you're using Expo, you will also need to generate a new development client build.
+Extremely fast and efficient storage for React Native, but requires that you install [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) separately. If you're using Expo, you will also need to generate a new development client build.
 
 ```ts
 import { MmkvBackend } from '@waveplay/stashy/backend/mmkv'
@@ -115,7 +120,7 @@ import { MmkvBackend } from '@waveplay/stashy/backend/mmkv'
 
 ## Debugging
 
-You can pass your own logger to Stashy when creating a new instance and it will be used to log events. This is useful for debugging backend and environment issues. 
+You can pass your own logger (such as [pino](https://github.com/pinojs/pino)) to Stashy when creating a new instance and it will be used to log events. This is useful for debugging backend and environment issues. 
 
 The `id` property is included in each log message to help you differentiate between multiple instances of Stashy.
 
