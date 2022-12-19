@@ -1,5 +1,9 @@
+// @ts-check
 const withTM = require('next-transpile-modules')(['@waveplay/pilot', '@waveplay/stashy', 'react-native-web'])
 
+/**
+ * @type {import('next').NextConfig}
+ **/
 const nextConfig = {
 	experimental: {
 		forceSwcTransforms: true,
