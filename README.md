@@ -6,7 +6,9 @@
 
 **Storage API for Node, React Native, and the browser**
 
-Flexible storage API shared across environments. <br/>Stashy uses the best storage backend for each environment.
+Stashy uses the best storage backend for each environment.
+
+<a href="https://example.stashy.waveplay.app"><b>Live demo project for web</b></a>
 
 </div>
 
