@@ -25,6 +25,8 @@
 		"backend/",
 		"dist/",
 		"src/",
+		"core.js",
+		"core.d.ts",
 		"jotai.js",
 		"jotai.d.ts",
 		"LICENSE",
