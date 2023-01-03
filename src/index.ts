@@ -2,9 +2,9 @@
  * © 2022 WavePlay <dev@waveplay.com>
  */
 import { Stashy } from './core'
-import CookieBackend from './backend/cookie'
-import LocalStorageBackend from './backend/local-storage'
-import AsyncStorageBackend from './backend/async-storage'
+import { CookieBackend } from './backend/cookie'
+import { LocalStorageBackend } from './backend/local-storage'
+import { AsyncStorageBackend } from './backend/async-storage'
 import { isNative, isSSR } from './utils'
 import type { StashyBackend } from './backend/_base'
 
