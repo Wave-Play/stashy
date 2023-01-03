@@ -52,6 +52,20 @@ See the [sample project](https://github.com/Wave-Play/stashy/tree/master/example
 | `getStringAsync`  | Gets the string value for the given key asynchronously.  |
 | `set`             | Sets the value for the given key.                        |
 
+## Default instance
+
+When you use `import stashy from '@waveplay/stashy'`, you're importing the default instance of Stashy. This instance is created with the default options and will use the best backend for your environment.
+
+This may be considered unnecessary overhead if you're creating new instances of Stashy in your code instead of using the default instance. Import from `@waveplay/stashy/core` instead to avoid this overhead.
+
+```ts
+import { Stashy } from '@waveplay/stashy/core'
+
+const stashy = new Stashy({
+	// ... your custom options
+})
+```
+
 ## Backends
 
 Stashy comes with a few backends available out of the box. You can also create your own backend by implementing the `StashyBackend` interface.
