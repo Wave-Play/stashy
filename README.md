@@ -8,7 +8,7 @@
 
 Stashy uses the best storage backend for each environment.
 
-<a href="https://example.stashy.waveplay.app"><b>Live demo project for web</b></a>
+<a href="https://demo.stashy.waveplay.dev"><b>Live demo project for web</b></a>
 
 </div>
 
