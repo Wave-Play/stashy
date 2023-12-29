@@ -1,6 +1,7 @@
 /**
  * © 2022 WavePlay <dev@waveplay.com>
  */
+// @ts-expect-error
 import type { GetServerSidePropsContext } from 'next'
 import type { Stashy } from '..'
 import type { Logger } from '../types'

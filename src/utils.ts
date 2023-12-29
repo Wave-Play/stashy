@@ -1,10 +1,6 @@
 /**
  * © 2023 WavePlay <dev@waveplay.com>
  */
-import { createRequire } from 'module'
-
-const require = createRequire(import.meta.url)
-
 let Platform: any
 try {
 	Platform = require('react-native').Platform
